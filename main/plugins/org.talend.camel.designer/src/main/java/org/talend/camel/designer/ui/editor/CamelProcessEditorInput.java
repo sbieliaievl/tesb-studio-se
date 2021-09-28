@@ -13,13 +13,12 @@
 package org.talend.camel.designer.ui.editor;
 
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.Property;
 import org.talend.core.runtime.process.TalendProcessArgumentConstant;
 import org.talend.core.ui.editor.JobEditorInput;
 import org.talend.designer.core.ui.editor.process.Process;
 import org.talend.designer.core.ui.projectsetting.ProjectSettingManager;
-import org.talend.repository.utils.MavenVersionUtils;
 
 /**
  * DOC guanglong.du class global comment. Detailled comment
@@ -41,11 +40,11 @@ public class CamelProcessEditorInput extends JobEditorInput {
 
     @Override
     protected Process createProcess() {
-        Item item = getItem();
-        if(null == MavenVersionUtils.get(item, TalendProcessArgumentConstant.ARG_BUILD_TYPE)) {
-            MavenVersionUtils.put(item.getProperty(), TalendProcessArgumentConstant.ARG_BUILD_TYPE, "ROUTE");
+        Property property = getItem().getProperty();
+        if(null == property.getAdditionalProperties().get(TalendProcessArgumentConstant.ARG_BUILD_TYPE)) {
+            property.getAdditionalProperties().put(TalendProcessArgumentConstant.ARG_BUILD_TYPE, "ROUTE");
         }
-        return new RouteProcess(item.getProperty());
+        return new RouteProcess(property);
     }
 
     @Override
