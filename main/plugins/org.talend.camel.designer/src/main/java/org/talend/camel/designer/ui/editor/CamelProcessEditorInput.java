@@ -41,12 +41,11 @@ public class CamelProcessEditorInput extends JobEditorInput {
 
     @Override
     protected Process createProcess() {
-    	Item item = getItem();
-    	if(null == MavenVersionUtils.get(item, TalendProcessArgumentConstant.ARG_BUILD_TYPE)) {
-    		MavenVersionUtils.put(item.getProperty(), TalendProcessArgumentConstant.ARG_BUILD_TYPE, "ROUTE");
-    	}
-    	
-    	return new RouteProcess(item.getProperty());
+        Item item = getItem();
+        if(null == MavenVersionUtils.get(item, TalendProcessArgumentConstant.ARG_BUILD_TYPE)) {
+            MavenVersionUtils.put(item.getProperty(), TalendProcessArgumentConstant.ARG_BUILD_TYPE, "ROUTE");
+        }
+        return new RouteProcess(item.getProperty());
     }
 
     @Override
