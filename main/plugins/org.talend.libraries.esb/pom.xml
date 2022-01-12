@@ -9,7 +9,9 @@
   </parent>
   <artifactId>org.talend.libraries.esb</artifactId>
   <packaging>eclipse-plugin</packaging>
-
+  	<properties>
+		<tycho.buildtimestamp.format>${timestamp}</tycho.buildtimestamp.format>
+	</properties>
    <build>
     <plugins>
        <plugin>
