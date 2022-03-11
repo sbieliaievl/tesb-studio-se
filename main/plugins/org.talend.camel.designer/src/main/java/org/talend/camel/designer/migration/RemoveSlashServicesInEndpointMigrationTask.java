@@ -2,7 +2,6 @@
 package org.talend.camel.designer.migration;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -21,8 +20,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 public class RemoveSlashServicesInEndpointMigrationTask extends AbstractItemMigrationTask {
 
-    private String[] nodesName = {"cSOAP","cREST","tRESTRequest"};
-    private Map<String, String> nodeNameEndpointNameMap = new HashMap<String, String>(){
+    final private String prefix = "/services"; 
+    final private Map<String, String> nodeNameEndpointNameMap = new HashMap<String, String>(){
         private static final long serialVersionUID = 1L;
         {
             put("cSOAP", "ADDRESS");
@@ -57,7 +56,7 @@ public class RemoveSlashServicesInEndpointMigrationTask extends AbstractItemMigr
             if (o instanceof NodeType) {
                 NodeType currentNode = (NodeType) o;
                 String componentName = currentNode.getComponentName();
-                if (Arrays.asList(nodesName).contains(componentName)) {
+                if (nodeNameEndpointNameMap.keySet().contains(componentName)) {
                     try {
                         removeSlashServicesInEndpoint(currentNode);
                         modified = true;
@@ -95,8 +94,9 @@ public class RemoveSlashServicesInEndpointMigrationTask extends AbstractItemMigr
                 String endpoint = p.getValue().replace(" ", "");
                 // will keep absolute URL as it is. Only remove relative URL's first
                 // "/services".
-                if (!needKeepEndpoint(endpoint)) {
-                    endpoint = endpoint.substring("/sevices".length());
+                if (!needKeepEndpoint(endpoint) && endpoint.startsWith(prefix)) {
+                    endpoint = endpoint.substring(prefix.length());
+                    p.setValue(endpoint);
                 }
             }
         }
