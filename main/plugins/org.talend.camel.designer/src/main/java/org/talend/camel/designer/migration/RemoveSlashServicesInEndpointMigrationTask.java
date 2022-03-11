@@ -20,8 +20,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 public class RemoveSlashServicesInEndpointMigrationTask extends AbstractItemMigrationTask {
 
-    final private String prefix = "/services"; 
-    final private Map<String, String> nodeNameEndpointNameMap = new HashMap<String, String>(){
+    final private String prefix = "/services";
+    final private Map<String, String> nodeNameEndpointNameMap = new HashMap<String, String>() {
         private static final long serialVersionUID = 1L;
         {
             put("cSOAP", "ADDRESS");
@@ -29,7 +29,7 @@ public class RemoveSlashServicesInEndpointMigrationTask extends AbstractItemMigr
             put("tRESTRequest", "REST_ENDPOINT");
         }
     };
-    
+
     @Override
     public List<ERepositoryObjectType> getTypes() {
         List<ERepositoryObjectType> toReturn = new ArrayList<ERepositoryObjectType>();
@@ -42,7 +42,7 @@ public class RemoveSlashServicesInEndpointMigrationTask extends AbstractItemMigr
         toReturn.add(ERepositoryObjectType.PROCESS_ROUTELET);
         return toReturn;
     }
-    
+
     @Override
     public ExecutionResult execute(Item item) {
         ProcessType processType = null;
@@ -73,15 +73,15 @@ public class RemoveSlashServicesInEndpointMigrationTask extends AbstractItemMigr
             return ExecutionResult.NOTHING_TO_DO;
         }
     }
-    
-	@Override
-	public Date getOrder() {
-		return new GregorianCalendar(2022, 03, 03, 00, 00, 00).getTime();
-	}
 
-	private boolean needKeepEndpoint(String endpoint) {
-	    return endpoint.startsWith("\"http://") || endpoint.startsWith("\"https://") || endpoint.startsWith("context.");
-	}
+    @Override
+    public Date getOrder() {
+        return new GregorianCalendar(2022, 03, 03, 00, 00, 00).getTime();
+    }
+
+    private boolean needKeepEndpoint(String endpoint) {
+        return endpoint.startsWith("\"http://") || endpoint.startsWith("\"https://") || endpoint.startsWith("context.");
+    }
 
     private void removeSlashServicesInEndpoint(NodeType currentNode) throws PersistenceException {
         String nodeName = currentNode.getComponentName();
