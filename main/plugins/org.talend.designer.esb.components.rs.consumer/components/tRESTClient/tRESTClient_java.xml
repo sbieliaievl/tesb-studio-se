@@ -268,7 +268,7 @@
 
 	<CODEGENERATION>
 		<IMPORTS>
-			<IMPORT MODULE="dom4j-2.1.3.jar" MVN="mvn:org.dom4j/dom4j/2.1.3" REQUIRED="true" />
+			<IMPORT MODULE="dom4j-${dom4j.version}.jar" MVN="mvn:org.dom4j/dom4j/${dom4j.version}" REQUIRED="true" />
 			<IMPORT MODULE_GROUP="cxf-core" REQUIRED="true" />
 			<IMPORT MODULE_GROUP="cxf-rt-rs-client" REQUIRED="true" />
 
